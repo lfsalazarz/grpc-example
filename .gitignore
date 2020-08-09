@@ -1,0 +1,2 @@
+ssl/ca/*.pem
+ssl/server/*.pem

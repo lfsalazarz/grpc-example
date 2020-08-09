@@ -1,0 +1,54 @@
+syntax = "proto3";
+
+package service;
+
+option go_package="grpc-example/service";
+
+import "google/protobuf/timestamp.proto";
+
+service MyCustomService{
+    rpc Unary(RequestUnary) returns (ResponseUnary) {};
+    rpc ServerStreaming(RequestServerStreaming) returns (stream ResponseServerStreaming) {};
+    rpc ClientStreaming(stream RequestClientStreaming) returns (ResponseClientStreaming) {};
+}
+
+// https://developers.google.com/protocol-buffers/docs/reference/go-generated
+
+message Item{
+    string id = 1;
+    string name = 2;
+    int32 number = 3;
+    bool is_active = 4;
+    double price = 5;
+    google.protobuf.Timestamp created_at = 6;
+}
+
+// UNARY
+
+message RequestUnary {
+    Item item = 1;
+}
+
+message ResponseUnary {
+    string id = 1;
+}
+
+// SERVER STREAMING
+
+message RequestServerStreaming {
+    repeated string id = 1;
+}
+
+message ResponseServerStreaming {
+    Item item = 1;
+}
+
+// CLIENT STREAMING
+
+message RequestClientStreaming {
+    Item item = 1;
+}
+
+message ResponseClientStreaming {
+    repeated string id = 1;
+}
